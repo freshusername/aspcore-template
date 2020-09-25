@@ -19,7 +19,7 @@
     },
     "web": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "api/v0/Records/getHighestRecordByUserId",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

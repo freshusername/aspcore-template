@@ -8,7 +8,7 @@ namespace web.Localization
 {
     internal static class Localization
     {
-        public static ImmutableList<string> SupportedCultures { get; } = ImmutableList.Create("en-US", "km-KH");
+        public static ImmutableList<string> SupportedCultures { get; } = ImmutableList.Create("en-US", "ua");
     }
 
     internal static class LocalizationExtensions

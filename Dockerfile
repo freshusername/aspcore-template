@@ -7,13 +7,21 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["web/web.csproj", "web/"]
-COPY ["service/service.csproj", "service/"]
-COPY ["api/api.csproj", "api/"]
-COPY ["dao/dao.csproj", "dao/"]
-RUN dotnet restore "web/web.csproj"
+
+# Copy the main source project files
+COPY src/*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p src/${file%.*}/ && mv $file src/${file%.*}/; done
+
+# Copy the test projects files
+COPY tests/*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p test/${file%.*}/ && mv $file test/${file%.*}/; done
+
+# Restore
+RUN dotnet restore "./src/web/web.csproj"
+
+#Build process
 COPY . .
-WORKDIR "/src/web"
+WORKDIR "./src/web"
 RUN dotnet build "web.csproj" -c Release -o /app/build
 
 FROM build AS publish

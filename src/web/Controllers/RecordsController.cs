@@ -35,9 +35,9 @@ namespace web.Controllers
         }
         #endregion
 
-        [HttpGet("getHighestRecordByUserId")]
+        [HttpGet("getHighestRecordForCurrentUser")]
         [Authorize]
-        public async Task<IActionResult> GetHighestRecordByUserId()
+        public async Task<IActionResult> GetHighestRecordForCurrentUser()
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var record = await _recordsService.GetHighestRecordByUserIdAsync(userId);
